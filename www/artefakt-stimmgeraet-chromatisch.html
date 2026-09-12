@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0c0f14" />
+  <title>Artefakt Stimmgerät Chromatisch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#0b0e13;--surface:#131823;--surface2:#1a2230;--line:rgba(255,255,255,.09);--text:#f1f5fa;--muted:#9ca7b7;--accent:#6fb4c3;--good:#72cf83;--warn:#d8ae62;--bad:#da7676;--radius:28px}
+    *{box-sizing:border-box} html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif}
+    body{display:flex;justify-content:center;align-items:stretch;padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom)) 16px;background:radial-gradient(circle at top,rgba(111,180,195,.10),transparent 30%),linear-gradient(180deg,#0b0e13 0%,#090c10 100%)}
+    .app{width:min(760px,100%);min-height:calc(100dvh - 32px);display:grid;grid-template-rows:auto 1fr auto;gap:18px}.panel{background:rgba(19,24,35,.92);border:1px solid var(--line);border-radius:var(--radius);backdrop-filter:blur(8px);box-shadow:0 18px 50px rgba(0,0,0,.24)}
+    header.panel{padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{display:flex;align-items:center;gap:14px;min-width:0}.brand img{width:52px;height:52px;object-fit:contain;border-radius:14px;background:#fff;padding:4px}.brand-text{min-width:0}h1{margin:0;font-size:clamp(1.12rem,1rem + 1vw,1.8rem);font-weight:700}.sub{color:var(--muted);font-size:.92rem}.status{text-align:right;color:var(--muted);font-size:.95rem}
+    main.panel{padding:clamp(18px,3vw,34px);display:grid;grid-template-rows:auto auto auto 1fr auto;gap:20px}.note-shell{display:flex;justify-content:center;align-items:center;padding:18px 14px;border-radius:30px;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));border:1px solid var(--line);transition:background-color .18s ease, box-shadow .18s ease, border-color .18s ease}.note-shell.scale-tone{background:linear-gradient(180deg, rgba(34,67,49,.92), rgba(26,49,36,.96));border-color:rgba(114,207,131,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 0 18px 40px rgba(8,24,14,.25)}.note-shell.non-scale-tone{background:linear-gradient(180deg, rgba(52,58,67,.92), rgba(35,40,48,.96));border-color:rgba(182,190,201,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.03), 0 18px 40px rgba(0,0,0,.18)}.note{text-align:center;font-size:clamp(5rem,20vw,11rem);line-height:.9;font-weight:800;letter-spacing:-.05em;margin-top:4px}.octave{text-align:center;color:var(--muted);font-size:clamp(1rem,.8rem + .8vw,1.25rem);margin-top:-8px}.freq{text-align:center;font-size:clamp(1rem,.8rem + 1vw,1.35rem);color:var(--muted)}
+    .meter-scale{position:relative;height:96px;border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid var(--line);overflow:hidden}.ticks,.labels{position:absolute;inset:0;display:grid;grid-template-columns:repeat(11,1fr);pointer-events:none}.ticks span{position:relative;display:block;height:100%}.ticks span::after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:18px;width:2px;height:24px;background:rgba(255,255,255,.16);border-radius:2px}.ticks span.major::after{height:42px;background:rgba(255,255,255,.28)}.ticks span.center::after{background:rgba(114,207,131,.9);width:3px}.needle{position:absolute;left:50%;bottom:14px;width:8px;height:58px;border-radius:999px;background:var(--accent);transform:translateX(-50%);box-shadow:0 0 24px rgba(111,180,195,.35);transition:left .08s linear,background-color .15s ease, box-shadow .15s ease}.labels{inset:auto 14px 10px 14px;height:auto;color:var(--muted);font-size:.86rem}.labels span{text-align:center}.labels span:nth-child(1)::after{content:"-50"}.labels span:nth-child(6)::after{content:"0";color:var(--text)}.labels span:nth-child(11)::after{content:"+50"}
+    .cent-boxes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.box{background:var(--surface2);border:1px solid var(--line);border-radius:22px;padding:16px;text-align:center}.label{color:var(--muted);font-size:.9rem;margin-bottom:6px}.value{font-size:clamp(1.35rem,1.1rem + 1vw,2rem);font-weight:700}.ok{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}.cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}button{border:1px solid var(--line);background:var(--surface2);color:var(--text);border-radius:18px;min-height:54px;padding:14px 18px;font-size:1rem;font-weight:600}button.primary{background:var(--accent);color:#081014;border-color:transparent}footer.panel{padding:14px 18px;display:grid;gap:6px;color:var(--muted);font-size:.92rem}
+    @media (max-width:560px){.cent-boxes{grid-template-columns:1fr}header.panel{align-items:flex-start;flex-direction:column}.status{text-align:left}.meter-scale{height:82px}.needle{height:52px}.brand img{width:46px;height:46px}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="panel">
+      <div class="brand">
+        <img src="../assets/harp-icon.svg" alt="Artefakt Harfen-Icon" />
+        <div class="brand-text">
+          <h1>Artefakt Stimmgerät</h1>
+          <div class="sub">Chromatisch, deutsches Notensystem · Grundstimmung: C · D · Es · F · G · As · B</div>
+        </div>
+      </div>
+      <div class="status" id="statusText">Bereit</div>
+    </header>
+    <main class="panel">
+      <div class="note-shell" id="noteShell"><div class="note" id="noteName">–</div></div>
+      <div class="octave" id="octaveText">&nbsp;</div>
+      <div class="freq" id="freqText">Mikrofon starten</div>
+      <div class="meter-scale" aria-label="Cent-Anzeige"><div class="ticks" id="ticks"></div><div class="needle" id="needle"></div><div class="labels"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
+      <div class="cent-boxes"><div class="box"><div class="label">Abweichung</div><div class="value" id="centText">0 Cent</div></div><div class="box"><div class="label">Frequenz</div><div class="value" id="hzText">— Hz</div></div><div class="box"><div class="label">Status</div><div class="value" id="inTuneText">Warten</div></div></div>
+      <div class="cta"><button class="primary" id="startBtn">Mikrofon starten</button></div>
+    </main>
+    <footer class="panel"><div>Chromatisch mit deutschem Notensystem: C, Cis, D, Es, E, F, Fis, G, As, A, B, H.</div><div>Grundstimmung C, D, Es, F, G, As, B erscheint dunkel edel grün; Außentöne wie Cis, E, Fis, A und H erscheinen edel grau.</div></footer>
+  </div>
+<script>
+const noteShell=document.getElementById('noteShell'),noteName=document.getElementById('noteName'),octaveText=document.getElementById('octaveText'),freqText=document.getElementById('freqText'),hzText=document.getElementById('hzText'),centText=document.getElementById('centText'),inTuneText=document.getElementById('inTuneText'),statusText=document.getElementById('statusText'),needle=document.getElementById('needle'),startBtn=document.getElementById('startBtn'),ticks=document.getElementById('ticks');
+for(let i=0;i<11;i++){const s=document.createElement('span');if(i===0||i===5||i===10)s.classList.add('major');if(i===5)s.classList.add('center');ticks.appendChild(s)}
+let audioContext,analyser,source,buffer,running=false;
+const DE_NAMES=['C','Cis','D','Es','E','F','Fis','G','As','A','B','H'];
+const SCALE_TONES=new Set(['C','D','Es','F','G','As','B']);
+function autoCorrelate(buf,sampleRate){const SIZE=buf.length;let rms=0;for(let i=0;i<SIZE;i++)rms+=buf[i]*buf[i];rms=Math.sqrt(rms/SIZE);if(rms<0.01)return-1;let r1=0,r2=SIZE-1,threshold=.2;for(let i=0;i<SIZE/2;i++){if(Math.abs(buf[i])<threshold){r1=i;break}}for(let i=1;i<SIZE/2;i++){if(Math.abs(buf[SIZE-i])<threshold){r2=SIZE-i;break}}buf=buf.slice(r1,r2);const newSize=buf.length,c=new Array(newSize).fill(0);for(let i=0;i<newSize;i++){for(let j=0;j<newSize-i;j++)c[i]+=buf[j]*buf[j+i]}let d=0;while(c[d]>c[d+1])d++;let maxval=-1,maxpos=-1;for(let i=d;i<newSize;i++){if(c[i]>maxval){maxval=c[i];maxpos=i}}let T0=maxpos;const x1=c[T0-1],x2=c[T0],x3=c[T0+1],a=(x1+x3-2*x2)/2,b=(x3-x1)/2;if(a)T0=T0-b/(2*a);return sampleRate/T0}
+function freqToNote(freq){const exact=69+12*Math.log2(freq/440);const midi=Math.round(exact);const cents=Math.round((exact-midi)*100);const refFreq=440*Math.pow(2,(midi-69)/12);const index=((midi%12)+12)%12;const octave=Math.floor(midi/12)-1;return{midi,name:DE_NAMES[index],cents,refFreq,octave}}
+function displayData(freq){const info=freqToNote(freq);const cents=Math.max(-50,Math.min(50,info.cents));noteName.textContent=info.name;noteShell.classList.remove('scale-tone','non-scale-tone');noteShell.classList.add(SCALE_TONES.has(info.name)?'scale-tone':'non-scale-tone');octaveText.textContent=`Oktave ${info.octave}`;freqText.textContent=`${info.name}${info.octave} · Referenz ${info.refFreq.toFixed(2)} Hz`;hzText.textContent=`${freq.toFixed(2)} Hz`;centText.textContent=`${cents>0?'+':''}${cents} Cent`;needle.style.left=`${50+cents}%`;let stateClass='warn',stateText='Fast',glow='rgba(216,174,98,.35)',color='var(--warn)';if(Math.abs(cents)<=5){stateClass='ok';stateText='Stimmt';glow='rgba(114,207,131,.35)';color='var(--good)'}else if(Math.abs(cents)>=20){stateClass='bad';stateText=cents<0?'Zu tief':'Zu hoch';glow='rgba(218,118,118,.35)';color='var(--bad)'}else{stateText=cents<0?'Etwas zu tief':'Etwas zu hoch'}inTuneText.textContent=stateText;inTuneText.className=`value ${stateClass}`;needle.style.background=color;needle.style.boxShadow=`0 0 24px ${glow}`;statusText.textContent='Mikrofon aktiv'}
+function updatePitch(){if(!running)return;analyser.getFloatTimeDomainData(buffer);const freq=autoCorrelate(buffer,audioContext.sampleRate);if(freq!==-1&&freq>40&&freq<1500){displayData(freq)}else{statusText.textContent='Warte auf Ton'}requestAnimationFrame(updatePitch)}
+async function startTuner(){try{const stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false},video:false});audioContext=new(window.AudioContext||window.webkitAudioContext)();source=audioContext.createMediaStreamSource(stream);analyser=audioContext.createAnalyser();analyser.fftSize=4096;buffer=new Float32Array(analyser.fftSize);source.connect(analyser);running=true;startBtn.disabled=true;startBtn.textContent='Mikrofon läuft';statusText.textContent='Mikrofon aktiv';updatePitch()}catch(err){statusText.textContent='Mikrofon nicht verfügbar';freqText.textContent='Bitte Mikrofon freigeben';console.error(err)}}
+startBtn.addEventListener('click',startTuner)
+</script>
+</body>
+</html>
